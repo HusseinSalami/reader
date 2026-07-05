@@ -111,3 +111,33 @@ export interface AuthPayload {
   email: string;
   role: 'admin' | 'user';
 }
+
+export type WebhookEvent =
+  | 'document.uploaded'
+  | 'document.extracted'
+  | 'document.approved'
+  | 'document.rejected'
+  | 'document.failed';
+
+export interface Webhook {
+  id: string;
+  tenant_id: string;
+  url: string;
+  secret: string;
+  events: WebhookEvent[];
+  is_active: boolean;
+  created_at: string;
+}
+
+export type BatchStatus = 'processing' | 'completed' | 'partial';
+
+export interface Batch {
+  id: string;
+  tenant_id: string;
+  total_files: number;
+  processed: number;
+  succeeded: number;
+  failed: number;
+  status: BatchStatus;
+  created_at: string;
+}

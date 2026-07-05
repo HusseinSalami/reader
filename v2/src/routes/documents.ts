@@ -2,6 +2,7 @@ import { FastifyInstance, FastifyRequest } from 'fastify';
 import { supabase } from '../db/client.js';
 import { extractDocument } from '../services/ocr.js';
 import { getTenantId } from '../middleware/auth.js';
+import { fireWebhooks } from '../services/webhooks.js';
 import sharp from 'sharp';
 import { DocumentStatus, DocumentType } from '../types/index.js';
 
@@ -57,6 +58,9 @@ export async function documentRoutes(app: FastifyInstance) {
     if (dbError) {
       return reply.status(500).send({ error: 'Failed to create document record' });
     }
+
+    // Fire webhook for upload event
+    fireWebhooks(tenantId, 'document.uploaded', doc.id, { file_name: file.filename }).catch(() => {});
 
     // Process asynchronously (don't block the response)
     processDocument(doc.id, tenantId, buffer, file.mimetype).catch(err => {
@@ -143,6 +147,9 @@ export async function documentRoutes(app: FastifyInstance) {
       .single();
 
     if (error || !data) return reply.status(404).send({ error: 'Document not found' });
+
+    fireWebhooks(tenantId, 'document.approved', id, { extracted_data: data.extracted_data }).catch(() => {});
+
     return data;
   });
 
@@ -166,6 +173,9 @@ export async function documentRoutes(app: FastifyInstance) {
       .single();
 
     if (error || !data) return reply.status(404).send({ error: 'Document not found' });
+
+    fireWebhooks(tenantId, 'document.rejected', id, { reason: reason || null }).catch(() => {});
+
     return data;
   });
 
@@ -257,6 +267,18 @@ async function processDocument(
       })
       .eq('id', documentId);
 
+    // Fire webhook for extraction result
+    if (status === 'extracted' || status === 'review_required') {
+      fireWebhooks(tenantId, 'document.extracted', documentId, {
+        confidence: result.confidence,
+        document_type: (result as any).detected_type || 'other',
+      }).catch(() => {});
+    } else if (status === 'failed') {
+      fireWebhooks(tenantId, 'document.failed', documentId, {
+        error: 'Extraction failed',
+      }).catch(() => {});
+    }
+
     // Track usage
     const month = new Date().toISOString().slice(0, 7);
     const { data: existing } = await supabase
@@ -291,5 +313,9 @@ async function processDocument(
       .from('documents')
       .update({ status: 'failed', notes: error.message })
       .eq('id', documentId);
+
+    fireWebhooks(tenantId, 'document.failed', documentId, {
+      error: error.message,
+    }).catch(() => {});
   }
 }

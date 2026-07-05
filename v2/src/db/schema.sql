@@ -81,5 +81,40 @@ create trigger tenants_updated_at before update on tenants for each row execute 
 create trigger documents_updated_at before update on documents for each row execute function update_updated_at();
 create trigger usage_updated_at before update on usage for each row execute function update_updated_at();
 
+-- Webhooks (ERP integration endpoints)
+create table webhooks (
+  id uuid primary key default uuid_generate_v4(),
+  tenant_id uuid not null references tenants(id) on delete cascade,
+  url text not null,
+  secret text not null,
+  events text[] not null,
+  is_active boolean not null default true,
+  created_at timestamptz not null default now()
+);
+create index idx_webhooks_tenant on webhooks(tenant_id);
+
+-- Batch uploads
+create table batches (
+  id uuid primary key default uuid_generate_v4(),
+  tenant_id uuid not null references tenants(id) on delete cascade,
+  total_files integer not null,
+  processed integer not null default 0,
+  succeeded integer not null default 0,
+  failed integer not null default 0,
+  status text not null default 'processing' check (status in ('processing', 'completed', 'partial')),
+  created_at timestamptz not null default now()
+);
+create index idx_batches_tenant on batches(tenant_id);
+
+-- Add batch_id to documents for grouping
+alter table documents add column batch_id uuid references batches(id) on delete set null;
+create index idx_documents_batch on documents(batch_id);
+
+-- RLS for new tables
+alter table webhooks enable row level security;
+alter table batches enable row level security;
+create policy "Webhooks belong to tenant" on webhooks for all using (true);
+create policy "Batches belong to tenant" on batches for all using (true);
+
 -- Storage bucket (create via Supabase dashboard or API)
 -- Bucket: 'documents' with 10MB max file size
