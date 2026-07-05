@@ -1,0 +1,16 @@
+{
+  "DocumentPlatformStack": {
+    "DocumentPlatformApiEndpointB6CF657B": "https://bslwuuodji.execute-api.us-east-1.amazonaws.com/prod/",
+    "UserPoolClientId": "5ult6ml9i2uubodtdm0emikm29",
+    "DocumentPlatformTableName": "DocumentPlatform",
+    "ApiUrl": "https://bslwuuodji.execute-api.us-east-1.amazonaws.com/prod/",
+    "UserPoolId": "us-east-1_h3ff0rMme",
+    "DocumentBucketName": "document-platform-380018306486-us-east-1",
+    "ProcessingQueueUrl": "https://sqs.us-east-1.amazonaws.com/380018306486/DocumentPlatform-Processing",
+    "DocumentsTableName": "DocumentPlatform-Documents",
+    "CustomersTableName": "DocumentPlatform-Customers",
+    "SubmissionsTableName": "DocumentPlatform-Submissions",
+    "ProcessingStateMachineArn": "arn:aws:states:us-east-1:380018306486:stateMachine:DocumentProcessingPipeline",
+    "ExamsTableName": "DocumentPlatform-Exams"
+  }
+}

@@ -1,0 +1,88 @@
+# Literature Analysis Exam - Grade 11
+## Mid-Year Assessment - January 2026
+
+**Student Name:** _______________________
+**Student ID:** _______________________
+**Date:** January 15, 2026
+**Time Allowed:** 90 minutes
+**Total Points:** 50
+
+---
+
+## Reading Passage
+
+**"The Impact of Technology on Modern Communication"**
+
+In the 21st century, technology has fundamentally transformed how humans communicate. The advent of smartphones, social media platforms, and instant messaging applications has created an unprecedented level of connectivity. People can now communicate across continents in real-time, share experiences through multimedia content, and maintain relationships despite physical distance.
+
+However, this technological revolution has also introduced new challenges. Studies suggest that face-to-face communication skills are declining, particularly among younger generations who have grown up with digital devices. The nuance of body language, tone of voice, and emotional expression that characterizes in-person interaction is often lost in text-based communication. Additionally, the constant availability enabled by mobile devices has blurred the boundaries between work and personal life, leading to increased stress and burnout.
+
+Social media platforms have created echo chambers where users primarily encounter information that confirms their existing beliefs. This phenomenon, known as confirmation bias, can lead to polarization and reduced exposure to diverse perspectives. The algorithms that power these platforms prioritize engagement over accuracy, sometimes amplifying misinformation and sensational content.
+
+Despite these challenges, technology has democratized access to information and enabled new forms of creative expression. Online education platforms have made learning accessible to millions who previously lacked educational opportunities. Digital tools have empowered individuals to create and share content, fostering new communities based on shared interests rather than geographic proximity.
+
+The key question facing society is not whether to embrace or reject technology, but how to harness its benefits while mitigating its negative effects. This requires developing digital literacy skills, establishing healthy boundaries with technology use, and designing platforms that prioritize human well-being over mere engagement metrics.
+
+---
+
+## Section A: Comprehension and Analysis (30 points)
+
+### Question 1 (10 points)
+According to the passage, what are the main benefits that technology has brought to modern communication? Provide at least three specific examples from the text.
+
+**Your Answer:**
+_____________________________________________________________________________
+_____________________________________________________________________________
+_____________________________________________________________________________
+_____________________________________________________________________________
+_____________________________________________________________________________
+
+### Question 2 (10 points)
+Explain the concept of "echo chambers" as described in the passage. How do social media algorithms contribute to this phenomenon, and what are the potential consequences?
+
+**Your Answer:**
+_____________________________________________________________________________
+_____________________________________________________________________________
+_____________________________________________________________________________
+_____________________________________________________________________________
+_____________________________________________________________________________
+
+### Question 3 (10 points)
+The passage mentions that technology has "blurred the boundaries between work and personal life." Discuss what this means and explain the negative effects this can have on individuals.
+
+**Your Answer:**
+_____________________________________________________________________________
+_____________________________________________________________________________
+_____________________________________________________________________________
+_____________________________________________________________________________
+_____________________________________________________________________________
+
+---
+
+## Section B: Critical Thinking and Personal Reflection (20 points)
+
+### Question 4 (10 points)
+The author suggests that the key question is "how to harness technology's benefits while mitigating its negative effects." Based on the passage and your own understanding, propose two specific strategies that individuals or society could implement to achieve this balance.
+
+**Your Answer:**
+_____________________________________________________________________________
+_____________________________________________________________________________
+_____________________________________________________________________________
+_____________________________________________________________________________
+_____________________________________________________________________________
+_____________________________________________________________________________
+
+### Question 5 (10 points)
+Do you agree with the passage's claim that face-to-face communication skills are declining due to technology? Support your position with reasoning and examples from your own observations or experiences.
+
+**Your Answer:**
+_____________________________________________________________________________
+_____________________________________________________________________________
+_____________________________________________________________________________
+_____________________________________________________________________________
+_____________________________________________________________________________
+_____________________________________________________________________________
+
+---
+
+**End of Exam**

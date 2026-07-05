@@ -1,0 +1,118 @@
+{
+  "Comment": "Document Processing Pipeline - Pre-process, Textract, Field Extraction, Bedrock, Validation, Storage",
+  "StartAt": "PreProcess",
+  "States": {
+    "PreProcess": {
+      "Type": "Task",
+      "Resource": "${PreProcessArn}",
+      "ResultPath": "$",
+      "Next": "InvokeTextract",
+      "Catch": [{
+        "ErrorEquals": ["States.ALL"],
+        "ResultPath": "$.error",
+        "Next": "ProcessingFailed"
+      }]
+    },
+    "InvokeTextract": {
+      "Type": "Task",
+      "Resource": "${InvokeTextractArn}",
+      "ResultPath": "$.textractResult",
+      "Next": "WaitForTextract",
+      "Catch": [{
+        "ErrorEquals": ["States.ALL"],
+        "ResultPath": "$.error",
+        "Next": "ProcessingFailed"
+      }]
+    },
+    "WaitForTextract": {
+      "Type": "Wait",
+      "Seconds": 5,
+      "Next": "CheckTextractStatus"
+    },
+    "CheckTextractStatus": {
+      "Type": "Task",
+      "Resource": "${CheckTextractStatusArn}",
+      "ResultPath": "$",
+      "Next": "IsTextractComplete",
+      "Catch": [{
+        "ErrorEquals": ["States.ALL"],
+        "ResultPath": "$.error",
+        "Next": "ProcessingFailed"
+      }]
+    },
+    "IsTextractComplete": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Variable": "$.textractStatus",
+          "StringEquals": "SUCCEEDED",
+          "Next": "ExtractFields"
+        },
+        {
+          "Variable": "$.textractStatus",
+          "StringEquals": "FAILED",
+          "Next": "ProcessingFailed"
+        }
+      ],
+      "Default": "WaitForTextract"
+    },
+    "ExtractFields": {
+      "Type": "Task",
+      "Resource": "${ExtractFieldsArn}",
+      "ResultPath": "$",
+      "Next": "ShouldUseBedrock",
+      "Catch": [{
+        "ErrorEquals": ["States.ALL"],
+        "ResultPath": "$.error",
+        "Next": "ProcessingFailed"
+      }]
+    },
+    "ShouldUseBedrock": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Variable": "$.useBedrock",
+          "BooleanEquals": true,
+          "Next": "InvokeBedrock"
+        }
+      ],
+      "Default": "ValidateFields"
+    },
+    "InvokeBedrock": {
+      "Type": "Task",
+      "Resource": "${InvokeBedrockArn}",
+      "ResultPath": "$",
+      "Next": "ValidateFields",
+      "Catch": [{
+        "ErrorEquals": ["States.ALL"],
+        "ResultPath": "$.bedrockError",
+        "Next": "ValidateFields"
+      }]
+    },
+    "ValidateFields": {
+      "Type": "Task",
+      "Resource": "${ValidateFieldsArn}",
+      "ResultPath": "$",
+      "Next": "StoreResults",
+      "Catch": [{
+        "ErrorEquals": ["States.ALL"],
+        "ResultPath": "$.error",
+        "Next": "ProcessingFailed"
+      }]
+    },
+    "StoreResults": {
+      "Type": "Task",
+      "Resource": "${StoreResultsArn}",
+      "ResultPath": "$",
+      "Next": "ProcessingComplete"
+    },
+    "ProcessingComplete": {
+      "Type": "Succeed"
+    },
+    "ProcessingFailed": {
+      "Type": "Fail",
+      "Error": "ProcessingError",
+      "Cause": "Document processing pipeline failed"
+    }
+  }
+}

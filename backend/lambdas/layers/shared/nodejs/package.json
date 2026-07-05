@@ -1,0 +1,7 @@
+{
+  "name": "document-platform-shared",
+  "version": "1.0.0",
+  "description": "Shared utilities and types for document platform",
+  "main": "index.js",
+  "types": "index.d.ts"
+}

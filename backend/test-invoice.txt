@@ -1,0 +1,20 @@
+INVOICE
+
+Invoice Number: INV-2024-001
+Invoice Date: 2024-01-15
+
+Bill To:
+Test Company Inc.
+123 Main Street
+New York, NY 10001
+
+Items:
+- Product A: $100.00
+- Product B: $50.00
+- Product C: $25.00
+
+Subtotal: $175.00
+Tax (10%): $17.50
+Total: $192.50
+
+Payment Due: 2024-02-15
